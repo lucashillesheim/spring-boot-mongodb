@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hillesheim.springbootmongodb.domain.User;
+import com.hillesheim.springbootmongodb.dto.UserDTO;
 import com.hillesheim.springbootmongodb.repository.UserRepository;
 import com.hillesheim.springbootmongodb.services.exception.ObjectNotFoundException;
 
@@ -23,5 +24,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
+    }
+
+    public User insert(User user) {
+        return repository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
