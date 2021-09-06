@@ -7,6 +7,7 @@ import java.util.TimeZone;
 import com.hillesheim.springbootmongodb.domain.Post;
 import com.hillesheim.springbootmongodb.domain.User;
 import com.hillesheim.springbootmongodb.dto.AuthorDTO;
+import com.hillesheim.springbootmongodb.dto.CommentDTO;
 import com.hillesheim.springbootmongodb.repository.PostRepository;
 import com.hillesheim.springbootmongodb.repository.UserRepository;
 
@@ -42,6 +43,14 @@ public class Instantiation implements CommandLineRunner {
                 "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
         Post post2 = new Post(null, dateFormat.parse("03/23/2021"), "Bom dia", "Acordei felix hoje!",
                 new AuthorDTO(maria));
+
+        CommentDTO comment1 = new CommentDTO("Boa viagem mano!", dateFormat.parse("03/21/2021"), new AuthorDTO(alex));
+        CommentDTO comment2 = new CommentDTO("Aproveite!", dateFormat.parse("03/22/2021"), new AuthorDTO(bob));
+        CommentDTO comment3 = new CommentDTO("Tenha um ótimo dia!", dateFormat.parse("03/23/2021"),
+                new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(comment1, comment2));
+        post2.getComments().addAll(Arrays.asList(comment3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
